@@ -188,9 +188,9 @@
                 { title: 'j', front: 'j', back: '/吱/ Jack, jump, juice' },
                 { title: 'q', front: 'q', back: '/k/ question, queen, quick' },
                 { title: 'r', front: 'r', back: '/弱/ red, run, rice' },
-                { title: 'v', front: 'v', back: '上牙放在下唇上，然后震动\nvan, very, five' },
+                { title: 'v', front: 'v', back: '/v/ van, very, five' },
                 { title: 'x', front: 'x', back: '/ks/ box, six, fox' },
-                { title: 'z', front: 'z', back: '震动 zoo, zero, zip' }
+                { title: 'z', front: 'z', back: '/z/ zoo, zero, zip' }
             ],
             'consonant-combos': [
                 { title: 'tr', front: 'tr', back: '/戳/ tree, train, truck' },
@@ -206,10 +206,10 @@
             vowels: [
                 { title: 'a', front: 'a', back: '/哎/ bag, cat\n/A/ cake, name, make' },
                 { title: 'e', front: 'e', back: '/哎/ bed, red, pen' },
-                { title: 'i', front: 'i', back: '/A/ big, sit, fish\n/I/ bike, like, time' },
+                { title: 'i', front: 'i', back: '/诶/ big, sit, fish\n/I/ bike, like, time' },
                 { title: 'o', front: 'o', back: '/奥/ dog, hot, box\n/欧/ nose, home, hope' },
-                { title: 'u', front: 'u', back: '/啊/ cup, bus, run\n/优/ cute, use, usually' },
-                { title: 'y', front: 'y', back: '/A/ city\n/I/ my, fly, sky' }
+                { title: 'u', front: 'u', back: '/啊/ cup, bus, run\n/又/ cute, use, usually' },
+                { title: 'y', front: 'y', back: '/诶/ city\n/I/ my, fly, sky' }
             ],
             'vowel-combos': [
                 { title: 'au/aw', front: 'au/aw', back: '/奥/ autumn, because, draw, saw' },
@@ -219,19 +219,19 @@
                 { title: 'ie', front: 'ie', back: '/衣/ piece, field' },
                 { title: 'oa', front: 'oa', back: '/欧/ boat, coat, road' },
                 { title: 'oo', front: 'oo', back: '/乌/ book, look, good, moon, food, zoo' },
-                { title: 'ou/ow', front: 'ou/ow', back: '/奥/ house, mouse, cow, now' },
+                { title: 'ou/ow', front: 'ou/ow', back: '/啊欧/ house, mouse, cow, now' },
                 { title: 'oi/oy', front: 'oi/oy', back: '/哦A/ oil, coin, boy, toy' },
-                { title: 'ar', front: 'ar', back: '/阿/ car, star, park' },
-                { title: 'or', front: 'or', back: '/哦/ for, short, horse' },
+                { title: 'ar', front: 'ar', back: '/啊/ car, star, park' },
+                { title: 'or', front: 'or', back: '/奥/ for, short, horse' },
                 { title: 'er/ir/ur', front: 'er/ir/ur', back: '/饿/ her, tiger, bird, girl, turn, nurse' }
             ],
             endings: [
-                { title: 'ing', front: 'ing', back: '/嘤/' },
+                { title: 'ing', front: 'ing', back: '/硬/' },
                 { title: 'ful', front: 'ful', back: '/fao/ beautiful, wonderful, full' },
                 { title: 'all', front: 'all', back: '/奥/ ball, tall, wall' },
-                { title: 'tion', front: 'tion', back: '/神/ station, nation' },
-                { title: 'sion', front: 'sion', back: '/神/ 或 /任/ television, decision' },
-                { title: 'ture', front: 'ture', back: '/车/ picture, nature' }
+                { title: 'tion', front: 'tion', back: '/甚/ station, nation' },
+                { title: 'sion', front: 'sion', back: '/甚/ 或 /任/ television, decision' },
+                { title: 'ture', front: 'ture', back: '/撤/ picture, nature' }
             ]
         };
 
@@ -265,66 +265,118 @@
             synth.onvoiceschanged = loadVoices;
         }
         loadVoices();
+        const phonemap = {
+        "/k/": "/k/",
+        "/s/": "/s/",
+        "/吱/": "https://www.jiwake.com/yinbiaofayin/mp3/d3.mp3",
+        "/弱/": "https://www.jiwake.com/yinbiaofayin/mp3/r.mp3",
+        "/v/": "https://www.jiwake.com/yinbiaofayin/mp3/v.mp3",
+        "/ks/": "/ks/",
+        "/z/": "https://www.jiwake.com/yinbiaofayin/mp3/z.mp3",
+        "/戳/": "https://www.jiwake.com/yinbiaofayin/mp3/tr.mp3",
+        "/捉/": "https://www.jiwake.com/yinbiaofayin/mp3/dr.mp3",
+        "/咬舌的s/": "/θ/",
+        "/咬舌的z/": "/ð/",
+        "/f/": "/f/",
+        "/w/": "/w/",
+        "/n/": "/n/",
+        "/哎/": "/æ/",
+        "/A/": "/eɪ/",
+        "/诶/": "/ɪ/",
+        "/I/": "I",
+        "/奥/": "/ɒ/",
+        "/欧/": "/oʊ/",
+        "/啊/": "/ʌ/",
+        "/又/": "U",
+        "/衣/": "/iː/",
+        "/乌/": "wu",
+        "/啊欧/": "/aʊ/",
+        "/哦A/": "/ɔɪ/",
+        "/饿/": "/ɜːr/",
+        "/硬/": "/ɪŋ/",
+        "/fao/": "/fl/",
+        "/甚/": "/ʃən/",
+        "/任/": "/ʒən/",
+        "/撤/": "/tʃər/",
+        };
 
-        // 播放单词发音
         function speakWord(word, element) {
-        if (!soundEnabled) return;
-        
-        // 清理单词（移除标点符号）
-        const cleanWord = word.replace(/[,\.]/g, '').trim();
-        if (!cleanWord || /[\u4e00-\u9fa5]/.test(cleanWord) || cleanWord.startsWith('/')) return;
-
-        // 立即停止当前播放
-        if (isSpeaking) {
-            synth.cancel();
-        }
-
-        // 添加视觉反馈
-        if (element) {
-            element.classList.add('speaking');
-            setTimeout(() => element.classList.remove('speaking'), 500);
-        }
-
-        // 检查 Web Speech API 支持
-        if (synth && voices.length > 0) {
-            isSpeaking = true;
-            const utterance = new SpeechSynthesisUtterance(cleanWord);
-            
-            // 选择英语语音
-            const enVoice = voices.find(voice => voice.lang.startsWith('en-US')) || 
-                        voices.find(voice => voice.lang.startsWith('en')) ||
-                        voices[0];
-            
-            if (enVoice) {
-                utterance.voice = enVoice;
+            if (!soundEnabled) return;
+            // 预处理
+            var cleanWord = word;
+            if (phonemap[word]) {
+                mapped = phonemap[word]
+                if (/http.*/.test(mapped)){
+                    const audio = new Audio(mapped);
+                    audio.play();
+                    return;
+                }
+                cleanWord = mapped;
             }
-            
-            utterance.rate = 0.8;
-            utterance.pitch = 1;
-            utterance.volume = 1;
-            
-            utterance.onend = () => {
-                isSpeaking = false;
-            };
-            
-            utterance.onerror = () => {
-                isSpeaking = false;
-            };
-            
-            synth.speak(utterance);
+            else{
+                cleanWord = word.replace(/[,\.]/g, '').trim();
+            }
+            // if (!cleanWord || /[\u4e00-\u9fa5]/.test(cleanWord) || cleanWord.startsWith('/')) return;
+            if (!cleanWord) return;
+
+            // 立即停止当前播放
+            if (isSpeaking) {
+                synth.cancel();
+            }
+
+            // 添加视觉反馈
+            if (element) {
+                element.classList.add('speaking');
+                setTimeout(() => element.classList.remove('speaking'), 500);
+            }
+            debugger;
+            speak(cleanWord);
         }
-    }
+
+        function speak(word){
+             // 检查 Web Speech API 支持
+            if (synth && voices.length > 0) {
+                // debugger;
+                isSpeaking = true;
+                const utterance = new SpeechSynthesisUtterance(word);
+                
+                // 选择英语语音
+                const enVoice = voices.find(voice => voice.lang.startsWith('en-US')) || 
+                            voices.find(voice => voice.lang.startsWith('en')) ||
+                            voices[0];
+                
+                if (enVoice) {
+                    utterance.voice = enVoice;
+                }
+                
+                utterance.rate = 0.8;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                utterance.onend = () => {
+                    isSpeaking = false;
+                };
+                
+                utterance.onerror = () => {
+                    isSpeaking = false;
+                };
+                debugger;
+                synth.speak(utterance);
+            }
+
+        }
 
         // 将文本转换为可交互的单词元素
         function makeWordsHoverable(text) {
             // 分割文本，保留换行符
             const lines = text.split('\n');
+            // debugger;
             return lines.map(line => {
                 // 分割每一行的单词，保留标点符号
                 const parts = line.split(/(\s+|,\s*)/);
                 return parts.map(part => {
                     // 检查是否为英文单词
-                    if (/^[a-zA-Z]+$/.test(part.trim())) {
+                    if (/^[a-zA-Z]+$/.test(part.trim()) || /\/.+\//.test(part.trim())) {
                         return `<span class="word-hoverable" onmouseenter="speakWord('${part.trim()}', this)">${part}</span>`;
                     }
                     return part;
@@ -589,4 +641,3 @@
     </script>
 </body>
 </html>
-
